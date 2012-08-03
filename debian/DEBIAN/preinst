@@ -1,6 +1,14 @@
 #!/bin/bash
-aptInstalled=$(dpkg -l drush | grep "un  drush")
+function installDrush {
+    pear channel-discover drush-ops.github.com/pear
+    pear install drush-ops/drush
+}
+function unInstallDrush {
+    pear uninstall pear.drush.org/drush
+    pear channel-delete pear.drush.org
+}
 
+aptInstalled=$(dpkg -l drush | grep "un  drush")
 
 drushversion=$(drush --version | grep "drush")
 if [ -f /usr/bin/drush ] ; then
@@ -22,18 +30,9 @@ if [ -f /usr/bin/drush ] ; then
     else
        read -p "Drush not installed, install it (y/n)?" CONT
        if [ "$CONT" == "y" ]; then
-         pear channel-discover drush-ops.github.com/pear
-         pear install drush-ops/drush
+         installDrush
        else
          exit 1
        fi
 fi
 
-function installDrush {
-    pear channel-discover drush-ops.github.com/pear
-    pear install drush-ops/drush
-}
-function unInstallDrush {
-    pear uninstall pear.drush.org/drush
-    pear channel-delete pear.drush.org
-}
