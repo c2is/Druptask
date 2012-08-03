@@ -10,11 +10,10 @@ if [ -f /usr/bin/drush ] ; then
            if [ "$CONT" == "y" ]; then
              if [ "${aptInstalled}" = "" ] ; then
                  apt-get remove drush
-                 else
-                 pear uninstall pear.drush.org/drush
-                 pear channel-delete pear.drush.org
-                 pear channel-discover drush-ops.github.com/pear
-                 pear install drush-ops/drush
+                 installDrush
+             else
+                 unInstallDrush
+                 installDrush
              fi
            else
              exit 1
@@ -30,3 +29,11 @@ if [ -f /usr/bin/drush ] ; then
        fi
 fi
 
+function installDrush {
+    pear channel-discover drush-ops.github.com/pear
+    pear install drush-ops/drush
+}
+function unInstallDrush {
+    pear uninstall pear.drush.org/drush
+    pear channel-delete pear.drush.org
+}

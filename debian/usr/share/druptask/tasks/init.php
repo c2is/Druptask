@@ -27,7 +27,7 @@ if(! file_exists($workingDir.$configFileName)){
 $confs = parse_ini_file($workingDir.$configFileName);
 
 /*
- * TELECHARGEMENT ET DEPLACEMENT DES SOURCES DANS LE REP DEMANDE
+ * DOWNLOAD SOURCES AND MOVE THEM INTO THE DIRECTORY ASKED
  */
 $cmd = array();
 $cmd[] = "rm -rf ".$tmpDir;
@@ -49,7 +49,7 @@ $cmd[] = "mv ".$tmpDir.$drupDirName." ".$workingDir.$params[0];
 echo taskExecute(implode(";",$cmd),"Rename Drupal directory");
 
 /*
- * PROCESS D'INSTALL DE DRUPAL
+ * INSTALL DRUPAL PROCESS
  */
 $cmd = array();
 $cmd[] = "cd ".$workingDir.$params[0];
@@ -58,7 +58,7 @@ $cmd[] = "drush -y si standard --db-url=mysql://".$confs["user"].":".$confs["pwd
 echo taskExecute(implode(";",$cmd),"Process Drupal install with drush");
 
 /*
- * Modules Install
+ * MODULES INSTALL
  */
 if($confs["modules"] != ""){
     echo taskExecute("cd ".$workingDir.$params[0].";drush -y dl ".$confs["modules"],"Downloading modules with drush");
