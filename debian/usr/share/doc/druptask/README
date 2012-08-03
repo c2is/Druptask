@@ -1,0 +1,19 @@
+To install druptask use :
+dpkg -i druptask.deb
+To uninstall druptask use :
+dpkg -r druptask.deb
+
+If you get some troubles after running dpkg -i druptask.deb, first run dpkg -r druptask.deb then dpkg -r druptask.deb to clean
+
+
+Druptask depends on Drush
+it use drush <= 4.5 and no higher version because of some bug in drush version 5 when creating drupal users
+
+If drush is not installed, you can do that via pear :
+pear channel-discover drush-ops.github.com/pear
+pear install drush-ops/drush
+
+
+If a higher version of 4.5 is already installed via pear you can remove it by this way :
+pear uninstall pear.drush.org/drush
+pear channel-delete pear.drush.org

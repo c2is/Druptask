@@ -1,0 +1,32 @@
+#!/bin/bash
+aptInstalled=$(dpkg -l drush | grep "un  drush")
+
+
+drushversion=$(drush --version | grep "drush")
+if [ -f /usr/bin/drush ] ; then
+    drushversion=$(drush --version | grep "4.5")
+    if [ "${drushversion}" = "" ] ; then
+           read -p "druptask need drush <= 4.5, your version is incompatible, desinstall yours and install 4.5 (y/n) ?" CONT
+           if [ "$CONT" == "y" ]; then
+             if [ "${aptInstalled}" = "" ] ; then
+                 apt-get remove drush
+                 else
+                 pear uninstall pear.drush.org/drush
+                 pear channel-delete pear.drush.org
+                 pear channel-discover drush-ops.github.com/pear
+                 pear install drush-ops/drush
+             fi
+           else
+             exit 1
+           fi
+    fi
+    else
+       read -p "Drush not installed, install it (y/n)?" CONT
+       if [ "$CONT" == "y" ]; then
+         pear channel-discover drush-ops.github.com/pear
+         pear install drush-ops/drush
+       else
+         exit 1
+       fi
+fi
+

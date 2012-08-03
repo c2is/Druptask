@@ -1,0 +1,66 @@
+#!/usr/bin/php
+<?php
+$apacheRunUser = trim(shell_exec("cat /etc/apache2/envvars | grep APACHE_RUN_USER | sed -e 's/.*=//'"));
+$apacheRunGroup = trim(shell_exec("cat /etc/apache2/envvars | grep APACHE_RUN_GROUP | sed -e 's/.*=//'"));
+$rootDir = __DIR__;
+$tasksDir = $rootDir.'/tasks';
+$dataDirectory = $rootDir.'/data';
+$configFileName = "druptask.ini";
+if(file_exists($rootDir.'/sites/sites.php')){
+    include($rootDir.'/sites/sites.php');
+}
+if(count($_SERVER['argv']) <= 1)
+{
+  echo "No task selected\n";
+  exit(1);
+}
+
+$task = sprintf('%s/%s', $tasksDir, $_SERVER['argv'][1]);
+$task .= ".php";
+if(!is_file($task))
+{
+  echo "Unknown task : $task\n";
+  exit(1);
+}
+
+$params = array_slice($_SERVER['argv'], 2);
+$status = 0;
+
+require_once($task);
+
+exit($status);
+
+function taskExecute($cmd,$notice)
+{
+  $results = array();
+  $status = 0;
+
+  printf("\033[0;33m%s\033[0m\n", $notice);
+  exec($cmd, $results, $status);
+
+  foreach ($results as  $line) {
+    printf("\033[0;34m%s\033[0m\n", $line);
+  }
+
+  return $status;
+}
+function checkDir($dirPath,$grant="is_writable"){
+    if(function_exists($grant)){
+        if(file_exists($dirPath)){
+            if(! $grant($dirPath)){
+                printf("\033[0;33m%s\033[0m\n", "Grant misfit : ".$dirPath." failed the test ".$grant);
+            }
+        }
+        else{
+			if(!mkdir($dirPath)){
+				printf("\033[0;33m%s\033[0m\n", "Creation of directory ".$dirPath." failed");
+			}
+			else{
+				printf("\033[0;33m%s\033[0m\n", "Directory ".$dirPath." created");
+			}
+        }
+    }
+    else{
+        printf("\033[0;33m%s\033[0m\n", "Unknown function ".$grant);
+    }
+}
