@@ -12,7 +12,7 @@ dpkg -i druptask.deb
 
 Usage
 -----
-This commands will install Drupal where you run them.
+These commands will install Drupal where you run them.
 
 Generate the druptask.ini
 ```bash
