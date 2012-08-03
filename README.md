@@ -1,6 +1,6 @@
 **Druptask : automate your Drupal installation**
 
-Druptask is a set of command line php utilities which automates some task trough [Drush](http://drupal.org/project/drush).
+Druptask is a set of command line php utilities which automates some tasks trough [Drush](http://drupal.org/project/drush).
 Currently it only deals with Drupal install but other features will be added as the days go by.
 Druptask is a debian package.
 
