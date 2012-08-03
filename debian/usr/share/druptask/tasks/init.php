@@ -70,7 +70,8 @@ if($confs["submodules"] != ""){
 
 $cmd = array();
 $cmd[] = "chmod -R 775 ".$workingDir.$params[0]."/sites/default/";
-$cmd[] = "chmod -R 555 ".$workingDir.$params[0]."/sites/default/settings.php";l
+$cmd[] = "chmod -R 555 ".$workingDir.$params[0]."/sites/default/settings.php";
+$cmd[] = "chmod 755 ".$workingDir.$params[0]."/sites/default/";
 
 echo taskExecute(implode(";",$cmd),"Set rights");
 
