@@ -41,6 +41,10 @@ pwd =
 modules = features,views,l10n_update,variable,i18n,token,entity,entityreference
 ; submodules to enable
 submodules = views_ui,variable_store,variable_realm,variable_advanced,variable_admin,i18n_menu
+
+[Post Install]
+; post install shell commands to run comma separated, you can use %installDir% for targeting installation directory
+postInstallShellCmd =
 ";
 if(file_put_contents($workingDir.$configFileName,$iniFileContent)){
     printf("\033[0;33m%s\033[0m\n", "Config file ".$workingDir.$configFileName." generated successfully\n");

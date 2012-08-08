@@ -73,6 +73,11 @@ $cmd[] = "chmod -R 775 ".$workingDir.$params[0]."/sites/default/";
 $cmd[] = "chmod -R 555 ".$workingDir.$params[0]."/sites/default/settings.php";
 $cmd[] = "chmod 755 ".$workingDir.$params[0]."/sites/default/";
 
+if($confs["postInstallShellCmd"] != ""){
+    $command = str_replace("%installDir%",$workingDir.$params[0],$confs["postInstallShellCmd"]);
+    echo taskExecute($command,"Running post install shell commands : ".$command);
+}
+
 echo taskExecute(implode(";",$cmd),"Set rights");
 
 printf("\033[0;31m%s\033[0m\n", "Please run that command as root\nchown -R :".$apacheRunGroup." ".$workingDir.$params[0]."\n");
