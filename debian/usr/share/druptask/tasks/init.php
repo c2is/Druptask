@@ -51,9 +51,16 @@ echo taskExecute(implode(";",$cmd),"Rename Drupal directory");
 /*
  * INSTALL DRUPAL PROCESS
  */
+if($confs["drupAdmUser"]){
+    //drupAdmUser
+    $extra[] = "--account-name=".$confs["drupAdmUser"];
+    $extra[] = "--account-pass=".$confs["drupAdmPwd"];
+
+    $extra = " ".implode(" ",$extra);
+}
 $cmd = array();
 $cmd[] = "cd ".$workingDir.$params[0];
-$cmd[] = "drush -y si standard --db-url=mysql://".$confs["user"].":".$confs["pwd"]."@".$confs["ip"].":".$confs["port"]."/".$params[0]." --db-su=".$confs["suser"]." --db-su-pw=".$confs["spwd"]." --site-name='".$params[0]."'";
+$cmd[] = "drush -y si standard --db-url=mysql://".$confs["user"].":".$confs["pwd"]."@".$confs["ip"].":".$confs["port"]."/".$params[0]." --db-su=".$confs["suser"]." --db-su-pw=".$confs["spwd"]." --site-name='".$params[0]."'".$extra;
 
 echo taskExecute(implode(";",$cmd),"Process Drupal install with drush");
 

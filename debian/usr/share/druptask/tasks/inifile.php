@@ -36,6 +36,11 @@ spwd =
 user = root
 pwd =
 
+[Admin account]
+;
+drupAdmUser = admin
+drupAdmPwd = admin
+
 [Modules]
 ; modules to install, separated by comma
 modules = features,views,l10n_update,variable,i18n,token,entity,entityreference
