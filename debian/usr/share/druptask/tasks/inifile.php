@@ -43,12 +43,14 @@ drupAdmPwd = admin
 
 [Modules]
 ; modules to install, separated by comma
-modules = features,views,l10n_update,variable,i18n,token,entity,entityreference
+modules = features,views,l10n_update,variable,i18n,token,entity,entityreference, ckeditor, imce
 ; submodules to enable
 submodules = views_ui,variable_store,variable_realm,variable_advanced,variable_admin,i18n_menu
 
 [Post Install]
 ; post install shell commands to run comma separated, you can use %installDir% for targeting installation directory
+; example, create symlink from your development directory to your new drupal installation
+; postInstallShellCmd = mkdir %installDir%/sites/all/modules/my_module; ln -s /var/www/development/drupal_modules/my_module %installDir%/sites/all/modules/my_module
 postInstallShellCmd =
 ";
 if(file_put_contents($workingDir.$configFileName,$iniFileContent)){
