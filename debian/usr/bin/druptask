@@ -5,5 +5,5 @@
 # php executable it can find.
 #
 
-exec "/usr/share/druptask/druptask" "$@" 
+exec "php" "/usr/share/druptask/druptask" "$@"
 
