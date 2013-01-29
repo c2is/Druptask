@@ -1,7 +1,16 @@
 #!/usr/bin/php
 <?php
-$apacheRunUser = trim(shell_exec("cat /etc/apache2/envvars | grep APACHE_RUN_USER | sed -e 's/.*=//'"));
-$apacheRunGroup = trim(shell_exec("cat /etc/apache2/envvars | grep APACHE_RUN_GROUP | sed -e 's/.*=//'"));
+
+// if we are on a dian like distro
+if(!file_exists("/etc/apache2/envvars")){
+    $apacheRunUser = trim(shell_exec('grep "^User " /etc/apache2/httpd.conf | cut -d" " -f2'));
+    $apacheRunGroup = trim(shell_exec('grep "^Group " /etc/apache2/httpd.conf | cut -d" " -f2'));
+}
+else{
+    $apacheRunUser = trim(shell_exec("cat /etc/apache2/envvars | grep APACHE_RUN_USER | sed -e 's/.*=//'"));
+    $apacheRunGroup = trim(shell_exec("cat /etc/apache2/envvars | grep APACHE_RUN_GROUP | sed -e 's/.*=//'"));
+}
+
 $rootDir = __DIR__;
 $tasksDir = $rootDir.'/tasks';
 $dataDirectory = $rootDir.'/data';
