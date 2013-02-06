@@ -2,12 +2,18 @@
 
 Druptask is a set of command line php utilities which automates some tasks trough [Drush](http://drupal.org/project/drush).
 Currently it only deals with Drupal install but other features will be added as the days go by.
-Druptask is a debian package.
+Druptask come as a debian and macosx package.
 
-## Installation
+## Installation for debian
 
 ```bash
 $ dpkg -i druptask.deb
+```
+
+## Installation for macosx
+
+```bash
+$ druptask.pkg
 ```
 
 ## Usage
