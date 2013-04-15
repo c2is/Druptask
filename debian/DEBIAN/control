@@ -3,7 +3,7 @@ Version: 1.0
 Section: base
 Priority: optional
 Architecture: all
-Depends: bash, php5-cli
+Depends: bash, php5-cli, php-pear
 Maintainer: c2is <tekos@c2is.fr>
 Description: Some tools to exploit Drush in batching mode
 
